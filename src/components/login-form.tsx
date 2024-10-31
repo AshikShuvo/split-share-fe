@@ -7,12 +7,12 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage
 } from "@/components/ui/form.tsx";
+import {Link} from "react-router-dom";
 
 
 export function LoginForm() {
@@ -81,9 +81,9 @@ export function LoginForm() {
                 </Form>
                 <div className="mt-4 text-center text-sm">
                     Don&apos;t have an account?{" "}
-                    <a href="#" className="underline">
+                    <Link to="/signup" className="underline">
                         Sign up
-                    </a>
+                    </Link>
                 </div>
             </CardContent>
         </Card>

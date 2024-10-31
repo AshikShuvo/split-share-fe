@@ -2,6 +2,7 @@ import {createBrowserRouter, Navigate} from "react-router-dom";
 import DefaultLayout from "@/layouts/default.tsx";
 import LoginPage from "@/pages/auth/Login.tsx";
 import AuthProtected from "@/routes/guards/AuthProtected.tsx";
+import SignupPage from "@/pages/auth/Signup.tsx";
 
 
 const route = createBrowserRouter([
@@ -22,6 +23,14 @@ const route = createBrowserRouter([
                 element: (
                     <AuthProtected requiresAuth={false}>
                         <LoginPage />
+                    </AuthProtected>
+                )
+            },
+            {
+                path: 'signup',
+                element: (
+                    <AuthProtected requiresAuth={false}>
+                        <SignupPage />
                     </AuthProtected>
                 )
             },
