@@ -3,6 +3,7 @@ import DefaultLayout from "@/layouts/default.tsx";
 import LoginPage from "@/pages/auth/Login.tsx";
 import AuthProtected from "@/routes/guards/AuthProtected.tsx";
 import SignupPage from "@/pages/auth/Signup.tsx";
+import DashboardLayout from "@/layouts/dashboardLayout.tsx";
 
 
 const route = createBrowserRouter([
@@ -38,9 +39,15 @@ const route = createBrowserRouter([
                 path: 'dashboard',
                 element: (
                     <AuthProtected redirectPath="/login">
-                        <h1>hello dashboard</h1>
+                        <DashboardLayout />
                     </AuthProtected>
-                )
+                ),
+                children: [
+                    {
+                        path: 'stats',
+                        element: <h1>Charts</h1>
+                    }
+                ]
             },
             { path: '*', element: <Navigate to="/" /> }
         ]
