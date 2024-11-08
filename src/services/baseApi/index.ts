@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import useSiteStore from "@/store/useSiteStore";
 
-interface CustomAxiosRequestConfig<T = any> extends InternalAxiosRequestConfig<T> {
+export interface CustomAxiosRequestConfig<T = any> extends InternalAxiosRequestConfig<T> {
     useGlobalLoading?: boolean;
     loadingKey?: string;
 }
