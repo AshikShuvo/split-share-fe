@@ -6,7 +6,7 @@ interface CustomAxiosRequestConfig<T = any> extends InternalAxiosRequestConfig<T
     loadingKey?: string;
 }
 const api = axios.create({
-    baseURL: 'https://api.example.com', // replace with your API base URL
+    baseURL: import.meta.env.BASE_URL,
 });
 
 api.interceptors.request.use(
