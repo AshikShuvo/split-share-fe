@@ -13,9 +13,12 @@ import {
     FormMessage
 } from "@/components/ui/form.tsx";
 import {Link} from "react-router-dom";
+import {SignInDto} from "@/services/auth/dto";
 
-
-export function LoginForm() {
+interface LoginFormProps{
+    handleSignIn: (payload: SignInDto)=>void;
+}
+export function LoginForm(props: LoginFormProps) {
     const formSchema = z.object({
         email: z.string().nonempty("email is required").email("must input valid email"),
         password: z.string().nonempty("password is required"),
@@ -29,9 +32,7 @@ export function LoginForm() {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+        props.handleSignIn(values)
     }
 
     return (
