@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import useSiteStore from "@/store/useSiteStore";
+import {toast} from "@/hooks/use-toast.ts";
 
 export interface CustomAxiosRequestConfig<T = any> extends InternalAxiosRequestConfig<T> {
     useGlobalLoading?: boolean;
@@ -58,6 +59,12 @@ api.interceptors.response.use(
         if (error.config?.loadingKey) {
             useSiteStore.getState().setLocalLoading(error.config.loadingKey, false);
         }
+        toast({
+            variant: "destructive",
+            title: "API Error",
+            description: error.response?.data?.message || error.message
+        })
+
 
         console.error('API Error:', error.response?.data?.message || error.message);
         return Promise.reject(error);
