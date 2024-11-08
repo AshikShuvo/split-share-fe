@@ -7,7 +7,7 @@ export interface CustomAxiosRequestConfig<T = any> extends InternalAxiosRequestC
     loadingKey?: string;
 }
 const api = axios.create({
-    baseURL: import.meta.env.BASE_URL,
+    baseURL: import.meta.env.VITE_BASE_URL,
 });
 
 api.interceptors.request.use(
@@ -49,7 +49,7 @@ api.interceptors.response.use(
             useSiteStore.getState().setLocalLoading(loadingKey, false);
         }
 
-        return response;
+        return response.data;
     },
     (error) => {
         if (error.config?.useGlobalLoading) {
@@ -62,11 +62,11 @@ api.interceptors.response.use(
         toast({
             variant: "destructive",
             title: "API Error",
-            description: error.response?.data?.message || error.message
+            description: error.response?.data?.message?.message,
         })
 
 
-        console.error('API Error:', error.response?.data?.message || error.message);
+        console.error('API Error:', error.response?.data?.message?.message || error.message);
         return Promise.reject(error);
     }
 );

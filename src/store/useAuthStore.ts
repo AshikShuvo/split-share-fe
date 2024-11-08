@@ -12,12 +12,11 @@ const useAuthStore = create<AuthState>()((set) => ({
     isAuthenticated: !!localStorage.getItem("access_token"),
     proceedToSignIn: async (payload) => {
         const response = await userSignIn(payload);
+        console.log(response);
+
         if(response) {
             localStorage.setItem("access_token", response.access_token);
-            set((state) => ({
-                ...state,
-                isAuthenticated: true,
-            }))
+            window.location.reload();
         }
     },
     proceedToSignOut: () => {
