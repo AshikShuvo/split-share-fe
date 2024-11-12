@@ -5,3 +5,9 @@ export interface SignInDto{
 export interface SignInResponseDto{
     access_token: string;
 }
+export interface SignUpDto{
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}

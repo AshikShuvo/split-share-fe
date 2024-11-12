@@ -6,14 +6,19 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Link} from "react-router-dom";
+import {SignUpDto} from "@/services/auth/dto";
 
-export default function RegistrationForm() {
+interface RegistrationFormProps {
+    handleSignUp: (payload: SignUpDto) => void;
+}
+
+export default function RegistrationForm(props: RegistrationFormProps) {
     const formSchema = z.object({
         email: z.string().nonempty("email is required").email("must input valid email"),
         password: z.string().nonempty("password is required"),
         firstName: z.string().nonempty("firstName is required"),
         lastName: z.string().nonempty("lastName is required"),
-        confirmPassword:z.string().nonempty("confirm password is required"),
+        confirmPassword: z.string().nonempty("confirm password is required"),
     }).refine((data) => data.password === data.confirmPassword, {
         message: "Passwords must match",
         path: ["confirmPassword"],
@@ -31,7 +36,12 @@ export default function RegistrationForm() {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+        props.handleSignUp({
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            password: values.password
+        })
     }
 
     return (
@@ -113,7 +123,7 @@ export default function RegistrationForm() {
                     </form>
                 </Form>
                 <div className="mt-4 text-center text-sm">
-                     Have an account?{" "}
+                    Have an account?{" "}
                     <Link to="/login" className="underline">
                         Back to Login
                     </Link>
